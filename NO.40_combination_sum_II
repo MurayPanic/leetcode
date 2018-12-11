@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int> > result;
+        vector<int> path;
+        sort (candidates.begin(), candidates.end());
+        dfs(candidates, target, candidates.begin(), result, path);
+        
+        return result;
+        
+    }
+    
+private:
+    void dfs(vector<int> & candidates, 
+             int cur_target, 
+             decltype(candidates.begin()) starter, 
+             vector<vector<int> >& result, 
+             vector<int>& path){
+        
+        if(cur_target < 0){return;}
+        else if(cur_target == 0){
+            result.push_back(path);
+        }
+        else if(cur_target >0){
+            for(auto i = starter; i != candidates.end(); ++i){
+                if(i!=starter && (*i) == *(i-1) ){continue;}
+                path.push_back(*i);                
+                dfs(candidates, cur_target-(*i), i+1, result, path );
+                path.pop_back();
+                
+            }
+            
+            
+        }
+        
+        
+        
+        
+    }
+
+    
+};
